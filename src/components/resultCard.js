@@ -103,60 +103,46 @@ const StyledSnippet = styled(Snippet)`
   }
 `;
 
-const ResultCard = ({ hit }) => {
-  let linkUrl;
-  let title;
-
-  if (hit.content_type === 'guide' && hit.importance > 1) {
-    linkUrl = hit.url;
-    title = hit.h1;
-  } else {
-    linkUrl = hit.root_url;
-    title = hit.root_title;
-  }
-
-  return (
-    <ResultCardContainer>
-      <header className="result-title">
-        <span className="content-type-tag">{hit.content_type}</span>
-        <a href={linkUrl}>
-          <h2>{title}</h2>
+const ResultCard = ({ hit }) => (
+  <ResultCardContainer>
+    <header className="result-title">
+      <a href={hit.repository}>
+        <h2>{hit.name}</h2>
+      </a>
+      &nbsp;
+      <span className="content-type-tag">{hit.status}</span>
+    </header>
+    {hit.webpage && (
+      <p className="root-title">
+        Webpage:{' '}
+        <a href="{hit.webpage}">
+          <em>{hit.webpage}</em>
         </a>
-      </header>
-      {hit.content_type === 'guide' && hit.importance > 1 && (
-        <p className="root-title">
-          Inside{' '}
-          <a href="{hit.root_url}">
-            <em>{hit.root_title}</em>
-          </a>
-        </p>
-      )}
+      </p>
+    )}
 
-      <div className="sidebyside">
-        {hit.thumbnail_url && (
-          <div className="sidebyside__image">
-            <a href={linkUrl}>
-              <img src={hit.thumbnail_url} alt="" />
-            </a>
-          </div>
-        )}
-        <div className="sidebyside__content">
-          <p>{hit.root_summary}</p>
-          {hit._snippetResult.content.matchLevel !== 'none' && (
-            <StyledSnippetBlock>
-              <StyledSnippet
-                attribute="content"
-                hit={hit}
-                tagName="mark"
-                nonHighlightedTagName="span"
-              />{' '}
-            </StyledSnippetBlock>
-          )}
+    <div className="sidebyside">
+      {hit.videos && (
+        <div className="sidebyside__image">
+          <a href={hit.videos}>
+            <img src={hit.videos} alt="" />
+          </a>
         </div>
+      )}
+      <div className="sidebyside__content">
+        <p>{hit.description}</p>
+        <StyledSnippetBlock>
+          <StyledSnippet
+            attribute="content"
+            hit={hit}
+            tagName="mark"
+            nonHighlightedTagName="span"
+          />{' '}
+        </StyledSnippetBlock>
       </div>
-    </ResultCardContainer>
-  );
-};
+    </div>
+  </ResultCardContainer>
+);
 
 ResultCard.propTypes = {
   hit: PropTypes.object.isRequired,

@@ -30,11 +30,11 @@ export default function IndexPage({ location }) {
         </p>
       </PageCover>
 
-      <InstantSearch searchClient={searchClient} indexName="prod_learn_astropy">
+      <InstantSearch searchClient={searchClient} indexName="training_modules">
         <Configure distinct facetingAfterDistinct />
         <PrioritySort
-          priorityRefinement="prod_learn_astropy_priority"
-          relevanceRefinement="prod_learn_astropy"
+          priorityRefinement="training_modules"
+          relevanceRefinement="training_modules"
         />
         <SearchLayout>
           <div className="search-box-area">
@@ -42,43 +42,9 @@ export default function IndexPage({ location }) {
           </div>
           <div className="search-refinements-area">
             <SearchRefinementsSection>
-              <h2>Format</h2>
-              <RefinementList attribute="content_type" />
-            </SearchRefinementsSection>
-            <SearchRefinementsSection>
-              <h2>Astropy packages</h2>
+              <h2>Status</h2>
               <RefinementList
-                attribute="astropy_package_keywords"
-                limit={10}
-                showMore
-                showMoreLimit={30}
-                searchable
-              />
-            </SearchRefinementsSection>
-            <SearchRefinementsSection>
-              <h2>Python packages</h2>
-              <RefinementList
-                attribute="python_package_keywords"
-                limit={10}
-                showMore
-                showMoreLimit={30}
-                searchable
-              />
-            </SearchRefinementsSection>
-            <SearchRefinementsSection>
-              <h2>Tasks</h2>
-              <RefinementList
-                attribute="task_keywords"
-                limit={10}
-                showMore
-                showMoreLimit={30}
-                searchable
-              />
-            </SearchRefinementsSection>
-            <SearchRefinementsSection>
-              <h2>Science domains</h2>
-              <RefinementList
-                attribute="science_keywords"
+                attribute="status"
                 limit={10}
                 showMore
                 showMoreLimit={30}
